@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/styles";
 import logo from "../assets/logo.svg";
 
 export default {
@@ -127,3 +129,7 @@ export default {
   }),
 };
 </script>
+
+<style>
+@import "@/assets/base.css";
+</style>
