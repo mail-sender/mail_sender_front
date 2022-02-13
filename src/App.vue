@@ -1,7 +1,10 @@
 <template>
   <!-- TODO: AppBar -->
   <!-- TODO: SideBar -->
-  <RouterView />
+  <div>
+    <n-button type="primary">naive-ui</n-button>
+    <RouterView />
+  </div>
   <!--
   <v-app>
     <v-main>
