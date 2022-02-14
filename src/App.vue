@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
     <div class="appbar"></div>
     <div class="content">
       <div class="menu">
@@ -9,18 +9,29 @@
         <RouterView />
       </div>
     </div>
-  </div>
+  </n-config-provider>
 </template>
 
-<script>
+<script lang="ts">
 import { RouterView } from "vue-router";
+import { lightTheme } from "naive-ui";
+
+// node_modules/naive-ui/lib/_styles/common/light.js
+const themeOverrides = {
+  common: {
+    primary: "#BF6B04",
+    primaryColorHover: "#BF6B04",
+    primaryColor: "#BF6B04",
+    textColor: "#BF6B04",
+  },
+};
 
 export default {
   name: "App",
   components: { RouterView },
   data: () => ({}),
   setup() {
-    return { menuOptions: menus };
+    return { menuOptions: menus, themeOverrides, lightTheme };
   },
 };
 
@@ -51,15 +62,21 @@ const menus = [
 <style lang="scss">
 @import "@/assets/base.css";
 
+:root {
+  --app-bar-height: 50px;
+}
+
 .appbar {
-  height: 50px;
-  background-color: var(--point-color);
+  height: var(--app-bar-height);
+  background-color: var(--primary-color);
 }
 
 .content {
   display: flex;
   .menu {
+    background-color: var(--color-background-soft);
     width: 300px;
+    height: calc(100vh - #{var(--app-bar-height)});
   }
 }
 </style>
