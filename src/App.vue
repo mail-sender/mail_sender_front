@@ -3,7 +3,7 @@
     <div class="appbar"></div>
     <div class="content">
       <div class="menu">
-        <n-menu :options="menuOptions" />
+        <n-menu :value="currentTab" :options="menuOptions" @update:value="onUpdateValue" />
       </div>
       <div class="container">
         <RouterView />
@@ -29,14 +29,26 @@ const themeOverrides = {
 export default {
   name: "App",
   components: { RouterView },
-  data: () => ({}),
+  data() {
+    return {
+      currentTab: "account",
+    };
+  },
   setup() {
     return { menuOptions: menus, themeOverrides, lightTheme };
+  },
+  methods: {
+    onUpdateValue(key: string, item: any) {
+      this.currentTab = key;
+      const path: string = item.path;
+      if (path == null) { return; }
+      this.$router.push(path);
+    },
   },
 };
 
 const menus = [
-  { label: "ACCOUNT", key: "account" },
+  { label: "ACCOUNT", key: "account", path: "/" },
   {
     label: "BODY FORMAT",
     key: "bodyFormat",
@@ -44,10 +56,12 @@ const menus = [
       {
         label: "FORMAT 01",
         key: "format_01",
+        path: "/bodyFormat",
       },
       {
         label: "FORMAT 02",
         key: "format_02",
+        path: "/bodyFormat",
       },
     ],
   },
