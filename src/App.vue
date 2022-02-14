@@ -1,125 +1,96 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
+    <div class="appbar"></div>
+    <div class="content">
+      <div class="menu">
+        <n-menu :value="currentTab" :options="menuOptions" @update:value="onUpdateValue" />
+      </div>
+      <div class="container">
+        <RouterView />
+      </div>
     </div>
-  </header>
-
-  <RouterView />
+  </n-config-provider>
 </template>
 
-<style>
+<script lang="ts">
+import { RouterView } from "vue-router";
+import { lightTheme } from "naive-ui";
+
+// node_modules/naive-ui/lib/_styles/common/light.js
+const themeOverrides = {
+  common: {
+    primary: "#BF6B04",
+    primaryColorHover: "#BF6B04",
+    primaryColor: "#BF6B04",
+    textColor: "#BF6B04",
+  },
+};
+
+export default {
+  name: "App",
+  components: { RouterView },
+  data() {
+    return {
+      currentTab: "account",
+    };
+  },
+  setup() {
+    return { menuOptions: menus, themeOverrides, lightTheme };
+  },
+  methods: {
+    onUpdateValue(key: string, item: any) {
+      this.currentTab = key;
+      const path: string = item.path;
+      if (path == null) { return; }
+      this.$router.push(path);
+    },
+  },
+};
+
+const menus = [
+  { label: "ACCOUNT", key: "account", path: "/" },
+  {
+    label: "BODY FORMAT",
+    key: "bodyFormat",
+    children: [
+      {
+        label: "FORMAT 01",
+        key: "format_01",
+        path: "/bodyFormat",
+      },
+      {
+        label: "FORMAT 02",
+        key: "format_02",
+        path: "/bodyFormat",
+      },
+    ],
+  },
+  {
+    label: "CONTACT LIST",
+    key: "contactList",
+    children: [],
+  },
+];
+</script>
+
+<style lang="scss">
 @import "@/assets/base.css";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+:root {
+  --app-bar-height: 50px;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.appbar {
+  height: var(--app-bar-height);
+  background-color: var(--primary-color);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+.content {
+  display: flex;
+  .menu {
+    background-color: var(--color-background-soft);
+    width: 300px;
+    height: calc(100vh - #{var(--app-bar-height)});
   }
 }
 </style>
