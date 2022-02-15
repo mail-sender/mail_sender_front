@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
-    <div class="appbar"></div>
+    <NavBar />
     <div class="content">
       <div class="menu">
         <n-menu :value="currentTab" :options="menuOptions" @update:value="onUpdateValue" />
@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts">
+import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 
@@ -28,7 +29,7 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView },
+  components: { RouterView, NavBar },
   data() {
     return {
       currentTab: "account",
