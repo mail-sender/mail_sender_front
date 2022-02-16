@@ -2,24 +2,33 @@
   <div class="appbar">
     <div class="buttons">
       <template v-if="loggedIn">
-        <n-button>Logout</n-button>
+        <n-button ghost color="#fff">LOG-OUT</n-button>
       </template>
       <template v-else>
-        <n-button dashed>Login</n-button>
+        <n-button ghost color="#fff" @click="clickSignInButton"
+          >SIGN IN</n-button
+        >
       </template>
     </div>
   </div>
 </template>
 
-<script>
-import { useAuthStore } from '@/stores/auth';
+<script lang="ts">
+import { useAuthStore } from "@/stores/auth";
 
 export default {
-  setup () {
+  setup() {
     const auth = useAuthStore();
-    return { loggedIn: auth.loggedIn }
-  }
-}
+    return {
+      loggedIn: auth.loggedIn,
+    };
+  },
+  methods: {
+    clickSignInButton() {
+      this.$emit("showSignInModal");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

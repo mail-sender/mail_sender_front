@@ -6,12 +6,12 @@ export const useAuthStore = defineStore({
     token: null,
   }),
   getters: {
-    loggedIn (state): boolean {
+    loggedIn(state): boolean {
       return state.token != null;
     },
   },
   actions: {
-    changeToken (newToken: string) {
+    changeToken(newToken: string) {
       this.token = newToken;
     },
   },

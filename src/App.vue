@@ -1,14 +1,24 @@
 <template>
   <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
-    <NavBar />
+    <NavBar @showSignInModal="showSignInModal = true" />
     <div class="content">
       <div class="menu">
-        <n-menu :value="currentTab" :options="menuOptions" @update:value="onUpdateValue" />
+        <n-menu
+          :value="currentTab"
+          :options="menuOptions"
+          @update:value="onUpdateValue"
+        />
       </div>
       <div class="container">
         <RouterView />
       </div>
     </div>
+
+    <n-modal v-model:show="showSignInModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <LoginFrom />
+      </n-card>
+    </n-modal>
   </n-config-provider>
 </template>
 
@@ -16,6 +26,7 @@
 import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
+import LoginFrom from "@/components/LoginForm.vue";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -29,10 +40,11 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView, NavBar },
+  components: { RouterView, NavBar, LoginFrom },
   data() {
     return {
       currentTab: "account",
+      showSignInModal: false,
     };
   },
   setup() {
@@ -42,7 +54,9 @@ export default {
     onUpdateValue(key: string, item: any) {
       this.currentTab = key;
       const path: string = item.path;
-      if (path == null) { return; }
+      if (path == null) {
+        return;
+      }
       this.$router.push(path);
     },
   },
