@@ -3,7 +3,8 @@
     <n-space vertical>
       <NavBar
         @clickMenuBtn="collapsed = !collapsed"
-        @showSignInModal="showSignInModal = true" />
+        @showSignInModal="showSignInModal = true"
+      />
       <n-layout has-sider>
         <n-layout-sider :width="300" :collapsed="collapsed">
           <div class="menu">

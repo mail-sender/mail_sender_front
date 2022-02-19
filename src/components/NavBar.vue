@@ -20,10 +20,10 @@
 import { useAuthStore } from "@/stores/auth";
 
 export default {
-  data () {
+  data() {
     return {
       isMobile: this.$isMobile(),
-    }
+    };
   },
   setup() {
     const auth = useAuthStore();
@@ -35,9 +35,9 @@ export default {
     clickSignInButton() {
       this.$emit("showSignInModal");
     },
-    clickMenuButton () {
-      this.$emit("clickMenuBtn")
-    }
+    clickMenuButton() {
+      this.$emit("clickMenuBtn");
+    },
   },
 };
 </script>
