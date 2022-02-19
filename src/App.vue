@@ -1,20 +1,43 @@
 <template>
   <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
-    <div class="appbar"></div>
-    <div class="content">
-      <div class="menu">
-        <n-menu :value="currentTab" :options="menuOptions" @update:value="onUpdateValue" />
-      </div>
-      <div class="container">
-        <RouterView />
-      </div>
-    </div>
+    <n-space vertical>
+      <NavBar
+        @clickMenuBtn="collapsed = !collapsed"
+        @showSignInModal="showSignInModal = true"
+      />
+      <n-layout has-sider>
+        <n-layout-sider :width="300" :collapsed="collapsed">
+          <div class="menu">
+            <n-menu
+              :value="currentTab"
+              :options="menuOptions"
+              @update:value="onUpdateValue"
+            />
+          </div>
+        </n-layout-sider>
+        <n-layout>
+          <div class="content">
+            <div class="container">
+              <RouterView />
+            </div>
+          </div>
+        </n-layout>
+      </n-layout>
+    </n-space>
+
+    <n-modal v-model:show="showSignInModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <LoginFrom />
+      </n-card>
+    </n-modal>
   </n-config-provider>
 </template>
 
 <script lang="ts">
+import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
+import LoginFrom from "@/components/LoginForm.vue";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -28,10 +51,12 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView },
+  components: { RouterView, NavBar, LoginFrom },
   data() {
     return {
       currentTab: "account",
+      showSignInModal: false,
+      collapsed: this.$isMobile(),
     };
   },
   setup() {
@@ -41,7 +66,9 @@ export default {
     onUpdateValue(key: string, item: any) {
       this.currentTab = key;
       const path: string = item.path;
-      if (path == null) { return; }
+      if (path == null) {
+        return;
+      }
       this.$router.push(path);
     },
   },
@@ -85,12 +112,8 @@ const menus = [
   background-color: var(--primary-color);
 }
 
-.content {
-  display: flex;
-  .menu {
-    background-color: var(--color-background-soft);
-    width: 300px;
-    height: calc(100vh - #{var(--app-bar-height)});
-  }
+.menu {
+  height: calc(100vh - #{var(--app-bar-height)});
+  background-color: var(--color-background-soft);
 }
 </style>
