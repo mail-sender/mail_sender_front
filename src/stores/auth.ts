@@ -4,7 +4,7 @@ export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({
     token: null,
-    user: null
+    user: null,
   }),
   getters: {
     loggedIn(state): boolean {

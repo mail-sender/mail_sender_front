@@ -8,22 +8,24 @@
         v-model:value="email"
         type="email"
         placeholder="이메일을 입력하세요"
-        class="input" />
+        class="input"
+      />
       <n-input
         v-model:value="password"
         type="password"
         placeholder="비밀번호를 입력하세요"
-        class="input" />
-      <n-button type="primary" strong block
-        size="large">로그인</n-button>
+        class="input"
+      />
+      <n-button type="primary" strong block size="large">로그인</n-button>
     </div>
 
     <div class="sub-title">소셜 계정으로 로그인</div>
 
     <div class="box-register-msg">
       <span>아직 회원이 아니신가요?</span>
-      <n-button quaternary size="large"
-        type="primary" strong="true">회원가입</n-button>
+      <n-button quaternary size="large" type="primary" strong="true"
+        >회원가입</n-button
+      >
     </div>
   </div>
 </template>
