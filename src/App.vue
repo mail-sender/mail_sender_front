@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme="lightTheme" :theme-overrides="themeOverrides">
-    <n-space vertical>
+    <n-space vertical class="space">
       <NavBar
         @clickMenuBtn="collapsed = !collapsed"
         @showSignInModal="showSignInModal = true"
@@ -15,12 +15,8 @@
             />
           </div>
         </n-layout-sider>
-        <n-layout>
-          <div class="content">
-            <div class="container">
-              <RouterView />
-            </div>
-          </div>
+        <n-layout class="content">
+          <RouterView />
         </n-layout>
       </n-layout>
     </n-space>
@@ -107,6 +103,10 @@ const menus = [
   --app-bar-height: 50px;
 }
 
+.space > div {
+  margin-bottom: 0 !important;
+}
+
 .appbar {
   height: var(--app-bar-height);
   background-color: var(--primary-color);
@@ -115,5 +115,9 @@ const menus = [
 .menu {
   height: calc(100vh - #{var(--app-bar-height)});
   background-color: var(--color-background-soft);
+}
+
+.content {
+  background: var(--background-color);
 }
 </style>
