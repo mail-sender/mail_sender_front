@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="input-form">
     <div class="title">로그인</div>
 
     <div class="sub-title">이메일로 로그인</div>
@@ -23,9 +23,8 @@
 
     <div class="box-register-msg">
       <span>아직 회원이 아니신가요?</span>
-      <n-button quaternary size="large" type="primary" strong="true"
-        >회원가입</n-button
-      >
+      <n-button quaternary size="large" type="primary"
+        strong="true" @click="doSignUp">회원가입</n-button>
     </div>
   </div>
 </template>
@@ -34,35 +33,19 @@
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
-  setup() {
+  setup(props, context) {
     return {
       email: ref(null),
       password: ref(null),
+      doSignUp () {
+        context.emit('doSignUp');
+      }
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
-.title {
-  margin-bottom: 15px;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-.sub-title {
-  margin: 10px 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--vt-c-black-soft);
-}
-.box-input {
-  margin-bottom: 30px;
-  .input {
-    margin-bottom: 10px;
-  }
-}
-
 .box-register-msg {
   font-size: 1rem;
   text-align: right;

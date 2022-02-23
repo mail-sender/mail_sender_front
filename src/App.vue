@@ -23,7 +23,13 @@
 
     <n-modal v-model:show="showSignInModal" transform-origin="center">
       <n-card style="width: 450px" role="dialog" aria-modal="true">
-        <LoginFrom />
+        <LoginFrom @doSignUp="doShowSignUpModal" />
+      </n-card>
+    </n-modal>
+
+    <n-modal v-model:show="showSignUpModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <SignUpForm />
       </n-card>
     </n-modal>
   </n-config-provider>
@@ -34,6 +40,7 @@ import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
+import SignUpForm from "@/components/SignUpForm.vue";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -47,11 +54,12 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView, NavBar, LoginFrom },
+  components: { RouterView, NavBar, LoginFrom, SignUpForm },
   data() {
     return {
       currentTab: "account",
       showSignInModal: false,
+      showSignUpModal: false,
       collapsed: this.$isMobile(),
     };
   },
@@ -67,6 +75,10 @@ export default {
       }
       this.$router.push(path);
     },
+    doShowSignUpModal () {
+      this.showSignInModal = false;
+      this.showSignUpModal = true;
+    }
   },
 };
 
@@ -97,7 +109,7 @@ const menus = [
 </script>
 
 <style lang="scss">
-@import "@/assets/base.css";
+@import "@/assets/base.scss";
 
 :root {
   --app-bar-height: 50px;

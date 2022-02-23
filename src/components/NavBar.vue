@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/base.css";
+@import "@/assets/base.scss";
 
 .appbar {
   display: flex;
