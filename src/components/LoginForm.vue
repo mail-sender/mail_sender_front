@@ -23,8 +23,14 @@
 
     <div class="box-register-msg">
       <span>아직 회원이 아니신가요?</span>
-      <n-button quaternary size="large" type="primary"
-        strong="true" @click="doSignUp">회원가입</n-button>
+      <n-button
+        quaternary
+        size="large"
+        type="primary"
+        strong="true"
+        @click="doSignUp"
+        >회원가입</n-button
+      >
     </div>
   </div>
 </template>
@@ -37,9 +43,9 @@ export default defineComponent({
     return {
       email: ref(null),
       password: ref(null),
-      doSignUp () {
-        context.emit('doSignUp');
-      }
+      doSignUp() {
+        context.emit("doSignUp");
+      },
     };
   },
 });

@@ -75,10 +75,10 @@ export default {
       }
       this.$router.push(path);
     },
-    doShowSignUpModal () {
+    doShowSignUpModal() {
       this.showSignInModal = false;
       this.showSignUpModal = true;
-    }
+    },
   },
 };
 
