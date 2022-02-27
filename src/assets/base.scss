@@ -22,6 +22,7 @@
 
   --primary-color: rgba(191, 107, 4, 1);
   --point-color: rgba(255, 192, 0, .15);
+  --background-color: rgba(255, 192, 0, 1);
 }
 
 /* semantic color variables for this project */
@@ -76,4 +77,25 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.input-form {
+  .title {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .sub-title {
+    margin: 10px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--vt-c-black-soft);
+  }
+  .box-input {
+    margin-bottom: 30px;
+    .input {
+      margin-bottom: 10px;
+    }
+  }
 }
