@@ -23,7 +23,7 @@
 
     <n-modal v-model:show="showSignInModal" transform-origin="center">
       <n-card style="width: 450px" role="dialog" aria-modal="true">
-        <LoginFrom @doSignUp="doShowSignUpModal" />
+        <LoginFrom @doSignUp="doShowSignUpModal" @doLogin="doLogin" />
       </n-card>
     </n-modal>
 
@@ -41,6 +41,7 @@ import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
+import { useAuthStore } from "@/stores/auth";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -78,6 +79,11 @@ export default {
     doShowSignUpModal() {
       this.showSignInModal = false;
       this.showSignUpModal = true;
+    },
+    doLogin(user) {
+      const auth = useAuthStore();
+      auth.afterLogin("newToken...", user);
+      this.showSignInModal = false;
     },
   },
 };

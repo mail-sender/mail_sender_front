@@ -8,16 +8,22 @@
           <n-input v-model:value="user.name" placeholder="Enter your name" />
         </n-form-item>
         <n-form-item label="EMAIL" path="email">
-          <n-input v-model:value="user.email" placeholder="Enter your email" />
+          <n-input
+            v-model:value="user.email"
+            type="email"
+            placeholder="Enter your email"
+          />
         </n-form-item>
         <n-form-item label="PASSWORD" path="password">
           <n-input
+            type="password"
             v-model:value="user.password"
             placeholder="Enter your password"
           />
         </n-form-item>
         <n-form-item label="PASSWORD CONFIRM" path="passwordConfirm">
           <n-input
+            type="password"
             v-model:value="user.passwordConfirm"
             placeholder="Enter your passwordConfirm"
           />
@@ -41,10 +47,6 @@ export default defineComponent({
     const formRef = ref(null);
     return {
       formRef,
-      name: ref(null),
-      email: ref(null),
-      password: ref(null),
-      passwordConfirm: ref(null),
       user: ref({
         name: "",
         email: "",
