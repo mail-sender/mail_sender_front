@@ -38,10 +38,13 @@ import { defineComponent, ref } from "vue";
 import type { Account } from "@/models/account.interface";
 
 export default defineComponent({
+  props: ["accountData"],
   setup(props, context) {
     const formRef = ref(null);
-
-    const account: Account = ref({} as Account);
+    let account: Account = ref({} as Account);
+    if (props.accountData !== null) {
+      account = ref(props.accountData);
+    }
     return {
       formRef,
       account,
