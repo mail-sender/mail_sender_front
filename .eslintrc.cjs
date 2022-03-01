@@ -18,4 +18,7 @@ module.exports = {
       extends: ["plugin:cypress/recommended"],
     },
   ],
+  rules: {
+    "vue/no-v-model-argument": "off",
+  },
 };

@@ -5,7 +5,7 @@
     </div>
     <div class="buttons">
       <template v-if="loggedIn">
-        <n-button ghost color="#fff">LOG-OUT</n-button>
+        <n-button ghost color="#fff" @click="clickLogoutBtn">LOG-OUT</n-button>
       </template>
       <template v-else>
         <n-button ghost color="#fff" @click="clickSignInButton"
@@ -22,14 +22,17 @@ import { useAuthStore } from "@/stores/auth";
 export default {
   data() {
     return {
+      auth: useAuthStore(),
       isMobile: this.$isMobile(),
     };
   },
   setup() {
-    const auth = useAuthStore();
-    return {
-      loggedIn: auth.loggedIn,
-    };
+    return {};
+  },
+  computed: {
+    loggedIn() {
+      return this.auth.loggedIn;
+    },
   },
   methods: {
     clickSignInButton() {
@@ -38,12 +41,15 @@ export default {
     clickMenuButton() {
       this.$emit("clickMenuBtn");
     },
+    clickLogoutBtn() {
+      this.auth.clear();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/base.css";
+@import "@/assets/base.scss";
 
 .appbar {
   display: flex;

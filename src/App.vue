@@ -23,7 +23,13 @@
 
     <n-modal v-model:show="showSignInModal" transform-origin="center">
       <n-card style="width: 450px" role="dialog" aria-modal="true">
-        <LoginFrom />
+        <LoginFrom @doSignUp="doShowSignUpModal" @doLogin="doLogin" />
+      </n-card>
+    </n-modal>
+
+    <n-modal v-model:show="showSignUpModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <SignUpForm />
       </n-card>
     </n-modal>
   </n-config-provider>
@@ -34,6 +40,8 @@ import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
+import SignUpForm from "@/components/SignUpForm.vue";
+import { useAuthStore } from "@/stores/auth";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -47,11 +55,12 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView, NavBar, LoginFrom },
+  components: { RouterView, NavBar, LoginFrom, SignUpForm },
   data() {
     return {
       currentTab: "account",
       showSignInModal: false,
+      showSignUpModal: false,
       collapsed: this.$isMobile(),
     };
   },
@@ -66,6 +75,15 @@ export default {
         return;
       }
       this.$router.push(path);
+    },
+    doShowSignUpModal() {
+      this.showSignInModal = false;
+      this.showSignUpModal = true;
+    },
+    doLogin(user) {
+      const auth = useAuthStore();
+      auth.afterLogin("newToken...", user);
+      this.showSignInModal = false;
     },
   },
 };
@@ -97,7 +115,7 @@ const menus = [
 </script>
 
 <style lang="scss">
-@import "@/assets/base.css";
+@import "@/assets/base.scss";
 
 :root {
   --app-bar-height: 50px;

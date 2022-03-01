@@ -1,1 +1,0 @@
-import{_ as o}from"./index.d1084cc3.js";import{o as r,c as e}from"./vendor.5a01ca33.js";const t={};function a(c,n){return r(),e("main",null,"Body Format View")}var s=o(t,[["render",a]]);export{s as default};

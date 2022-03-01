@@ -15,5 +15,12 @@ export const useAuthStore = defineStore({
     changeToken(newToken: string) {
       this.token = newToken;
     },
+    afterLogin(newToken: string, newUser: any) {
+      this.token = newToken;
+      this.user = newUser;
+    },
+    clear() {
+      this.token = this.user = null;
+    },
   },
 });
