@@ -42,6 +42,7 @@ import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import { useAuthStore } from "@/stores/auth";
+import { useDataStore } from "@/stores/data";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -57,15 +58,22 @@ export default {
   name: "App",
   components: { RouterView, NavBar, LoginFrom, SignUpForm },
   data() {
+    const data = useDataStore();
+    const menuOptions: Array = menus;
+    menuOptions[1].children = data.bodyFormats.map((bodyFormat) => {
+      const key: string = bodyFormat._id;
+      return { label: bodyFormat.name, key, path: `/bodyFormat/${key}` };
+    });
     return {
       currentTab: "account",
       showSignInModal: false,
       showSignUpModal: false,
       collapsed: this.$isMobile(),
+      menuOptions,
     };
   },
   setup() {
-    return { menuOptions: menus, themeOverrides, lightTheme };
+    return { themeOverrides, lightTheme };
   },
   methods: {
     onUpdateValue(key: string, item: any) {
@@ -93,6 +101,7 @@ const menus = [
   {
     label: "BODY FORMAT",
     key: "bodyFormat",
+    /*
     children: [
       {
         label: "FORMAT 01",
@@ -105,6 +114,8 @@ const menus = [
         path: "/bodyFormat",
       },
     ],
+    */
+    children: [],
   },
   {
     label: "CONTACT LIST",
