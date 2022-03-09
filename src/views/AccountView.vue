@@ -81,17 +81,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main-card {
-  margin: 15px 25px;
-  padding: 0 10px;
-  width: calc(100% - 50px);
-  max-width: 750px;
-  height: calc(100vh - #{var(--app-bar-height)} - 30px);
-  .n-card__content {
-    padding: 0;
-  }
-}
-
 .buttons {
   margin-top: 50px;
   text-align: right;

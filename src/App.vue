@@ -32,6 +32,17 @@
         <SignUpForm />
       </n-card>
     </n-modal>
+
+    <n-modal v-model:show="showInputTextModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <InputTextForm
+          title="ADD BODYFORMAT"
+          content="INPUT BODYFORMAT TITLE"
+          submitText="CREATE"
+          @submit="createBodyFormat"
+        />
+      </n-card>
+    </n-modal>
   </n-config-provider>
 </template>
 
@@ -40,8 +51,10 @@ import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
+import InputTextForm from "@/components/InputTextForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import { useAuthStore } from "@/stores/auth";
+import { useDataStore } from "@/stores/data";
 
 // node_modules/naive-ui/lib/_styles/common/light.js
 const themeOverrides = {
@@ -55,20 +68,50 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView, NavBar, LoginFrom, SignUpForm },
+  components: { RouterView, NavBar, LoginFrom, SignUpForm, InputTextForm },
   data() {
     return {
       currentTab: "account",
       showSignInModal: false,
       showSignUpModal: false,
+      showInputTextModal: false,
       collapsed: this.$isMobile(),
     };
   },
   setup() {
-    return { menuOptions: menus, themeOverrides, lightTheme };
+    return {
+      themeOverrides,
+      lightTheme,
+      data: useDataStore(),
+    };
+  },
+  watch: {
+    $route() {
+      const name = this.$route.name;
+      const id = this.$route.params.id;
+      const tab = id || name;
+      if (tab && this.currentTab !== tab) {
+        this.currentTab = tab.toString();
+      }
+    },
+  },
+  computed: {
+    menuOptions() {
+      const menuOptions: Array = [...menus];
+      menuOptions[1].children = this.data.bodyFormatMenus;
+      menuOptions[1].children.push({
+        label: "ADD BODYFORMAT",
+        key: "add_bodyformat",
+      });
+      return menuOptions;
+    },
   },
   methods: {
     onUpdateValue(key: string, item: any) {
+      if (key === "add_bodyformat") {
+        this.showInputTextModal = true;
+        return;
+      }
       this.currentTab = key;
       const path: string = item.path;
       if (path == null) {
@@ -85,6 +128,10 @@ export default {
       auth.afterLogin("newToken...", user);
       this.showSignInModal = false;
     },
+    createBodyFormat(name) {
+      this.showInputTextModal = false;
+      this.data.createBodyFormat(name);
+    },
   },
 };
 
@@ -93,18 +140,7 @@ const menus = [
   {
     label: "BODY FORMAT",
     key: "bodyFormat",
-    children: [
-      {
-        label: "FORMAT 01",
-        key: "format_01",
-        path: "/bodyFormat",
-      },
-      {
-        label: "FORMAT 02",
-        key: "format_02",
-        path: "/bodyFormat",
-      },
-    ],
+    children: [],
   },
   {
     label: "CONTACT LIST",

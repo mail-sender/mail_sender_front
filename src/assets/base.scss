@@ -79,13 +79,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.input-form {
-  .title {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    font-weight: bold;
+.main-card {
+  margin: 15px 25px;
+  padding: 0 10px;
+  width: calc(100% - 50px);
+  max-width: 750px;
+  height: calc(100vh - #{var(--app-bar-height)} - 30px);
+  .n-card__content {
+    padding: 0;
   }
+}
+
+.modal-content .title, .input-form .title {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.input-form {
   .sub-title {
     margin: 10px 0;
     font-size: 1rem;
@@ -97,5 +109,12 @@ body {
     .input {
       margin-bottom: 10px;
     }
+  }
+}
+
+.box-flex {
+  display: flex;
+  > * {
+    flex: 1;
   }
 }

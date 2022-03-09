@@ -10,7 +10,7 @@ const router = createRouter({
       component: AccountView,
     },
     {
-      path: "/bodyFormat",
+      path: "/bodyFormat/:id",
       name: "bodyFormat",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
