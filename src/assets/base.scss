@@ -90,13 +90,14 @@ body {
   }
 }
 
+.modal-content .title, .input-form .title {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 .input-form {
-  .title {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
   .sub-title {
     margin: 10px 0;
     font-size: 1rem;
@@ -108,5 +109,12 @@ body {
     .input {
       margin-bottom: 10px;
     }
+  }
+}
+
+.box-flex {
+  display: flex;
+  > * {
+    flex: 1;
   }
 }
