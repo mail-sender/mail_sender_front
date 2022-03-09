@@ -24,7 +24,10 @@
 
     <n-modal v-model:show="showDeleteConfirm" transform-origin="center">
       <n-card style="width: 450px" role="dialog" aria-modal="true">
-        <DeleteConfirm @cancel="showDeleteConfirm = false" @discard="doDiscard" />
+        <DeleteConfirm
+          @cancel="showDeleteConfirm = false"
+          @discard="doDiscard"
+        />
       </n-card>
     </n-modal>
   </main>
@@ -33,7 +36,7 @@
 <script lang="ts">
 import { useDataStore } from "@/stores/data";
 import type { BodyFormat } from "@/components/bodyFormat.interface";
-import DeleteConfirm from "@/components/DeleteConfirm.vue"
+import DeleteConfirm from "@/components/DeleteConfirm.vue";
 
 export default {
   setup() {
@@ -47,7 +50,9 @@ export default {
     };
   },
   computed: {
-    id (): string { return (this.$route.params.id || '').toString(); },
+    id(): string {
+      return (this.$route.params.id || "").toString();
+    },
   },
   watch: {
     "$route.params.id"() {
@@ -60,9 +65,10 @@ export default {
   methods: {
     initBodyFormat() {
       // TODO: Call Get BodyFormat API
-      this.bodyFormat = this.data.bodyFormats.find((format) => {
-        return format._id === this.id;
-      }) || {} as BodyFormat;
+      this.bodyFormat =
+        this.data.bodyFormats.find((format) => {
+          return format._id === this.id;
+        }) || ({} as BodyFormat);
     },
     clickEditBtn() {
       // TODO: 수정 작업
@@ -70,16 +76,16 @@ export default {
     clickDiscardBtn() {
       this.showDeleteConfirm = true;
     },
-    doDiscard () {
+    doDiscard() {
       // TODO: Call Remove BodyFormat
       this.data.remoteBodyFormat(this.id);
       this.showDeleteConfirm = false;
-      let path = '/';
+      let path = "/";
       if (this.data.bodyFormats.length) {
         path = `/bodyFormat/${this.data.bodyFormats[0]._id}`;
       }
       this.$router.push(path);
-    }
+    },
   },
 };
 </script>

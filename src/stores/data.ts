@@ -20,11 +20,19 @@ export const useDataStore = defineStore({
   actions: {
     createBodyFormat(name: string): void {
       const id = Math.random() * 9999;
-      this.bodyFormats.push({ _id: id.toString(), name, content: "" } as BodyFormat);
+      this.bodyFormats.push({
+        _id: id.toString(),
+        name,
+        content: "",
+      } as BodyFormat);
     },
     remoteBodyFormat(id: string): void {
-      const index: number = this.bodyFormats.findIndex((bodyFormat) => bodyFormat._id === id);
-      if (~index) { this.bodyFormats.splice(index, 1); }
+      const index: number = this.bodyFormats.findIndex(
+        (bodyFormat) => bodyFormat._id === id
+      );
+      if (~index) {
+        this.bodyFormats.splice(index, 1);
+      }
     },
   },
 });

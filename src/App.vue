@@ -86,8 +86,8 @@ export default {
     };
   },
   watch: {
-    "$route" () {
-      const name = this.$route.name; 
+    $route() {
+      const name = this.$route.name;
       const id = this.$route.params.id;
       const tab = id || name;
       if (tab && this.currentTab !== tab) {
