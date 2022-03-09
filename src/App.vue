@@ -85,6 +85,16 @@ export default {
       data: useDataStore(),
     };
   },
+  watch: {
+    "$route" () {
+      const name = this.$route.name; 
+      const id = this.$route.params.id;
+      const tab = id || name;
+      if (tab && this.currentTab !== tab) {
+        this.currentTab = tab.toString();
+      }
+    },
+  },
   computed: {
     menuOptions() {
       const menuOptions: Array = [...menus];
@@ -130,20 +140,6 @@ const menus = [
   {
     label: "BODY FORMAT",
     key: "bodyFormat",
-    /*
-    children: [
-      {
-        label: "FORMAT 01",
-        key: "format_01",
-        path: "/bodyFormat",
-      },
-      {
-        label: "FORMAT 02",
-        key: "format_02",
-        path: "/bodyFormat",
-      },
-    ],
-    */
     children: [],
   },
   {
