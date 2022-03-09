@@ -52,7 +52,9 @@ export default {
   methods: {
     initBodyFormat() {
       this.bodyFormat =
-        this.data.bodyFormats.find((format) => format._id === this.id) || {};
+        this.data.bodyFormats.find((format) => {
+          return format._id === this.id;
+        }) || {};
     },
     clickEditBtn() {
       // TODO: 수정 작업

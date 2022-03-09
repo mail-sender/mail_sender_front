@@ -32,6 +32,17 @@
         <SignUpForm />
       </n-card>
     </n-modal>
+
+    <n-modal v-model:show="showInputTextModal" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-modal="true">
+        <InputTextForm
+          title="ADD BODYFORMAT"
+          content="INPUT BODYFORMAT TITLE"
+          submitText="CREATE"
+          @submit="createBodyFormat"
+        />
+      </n-card>
+    </n-modal>
   </n-config-provider>
 </template>
 
@@ -40,6 +51,7 @@ import NavBar from "@/components/NavBar.vue";
 import { RouterView } from "vue-router";
 import { lightTheme } from "naive-ui";
 import LoginFrom from "@/components/LoginForm.vue";
+import InputTextForm from "@/components/InputTextForm.vue";
 import SignUpForm from "@/components/SignUpForm.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useDataStore } from "@/stores/data";
@@ -56,27 +68,40 @@ const themeOverrides = {
 
 export default {
   name: "App",
-  components: { RouterView, NavBar, LoginFrom, SignUpForm },
+  components: { RouterView, NavBar, LoginFrom, SignUpForm, InputTextForm },
   data() {
-    const data = useDataStore();
-    const menuOptions: Array = menus;
-    menuOptions[1].children = data.bodyFormats.map((bodyFormat) => {
-      const key: string = bodyFormat._id;
-      return { label: bodyFormat.name, key, path: `/bodyFormat/${key}` };
-    });
     return {
       currentTab: "account",
       showSignInModal: false,
       showSignUpModal: false,
+      showInputTextModal: false,
       collapsed: this.$isMobile(),
-      menuOptions,
     };
   },
   setup() {
-    return { themeOverrides, lightTheme };
+    return {
+      themeOverrides,
+      lightTheme,
+      data: useDataStore(),
+    };
+  },
+  computed: {
+    menuOptions() {
+      const menuOptions: Array = [...menus];
+      menuOptions[1].children = this.data.bodyFormatMenus;
+      menuOptions[1].children.push({
+        label: "ADD BODYFORMAT",
+        key: "add_bodyformat",
+      });
+      return menuOptions;
+    },
   },
   methods: {
     onUpdateValue(key: string, item: any) {
+      if (key === "add_bodyformat") {
+        this.showInputTextModal = true;
+        return;
+      }
       this.currentTab = key;
       const path: string = item.path;
       if (path == null) {
@@ -92,6 +117,10 @@ export default {
       const auth = useAuthStore();
       auth.afterLogin("newToken...", user);
       this.showSignInModal = false;
+    },
+    createBodyFormat(name) {
+      this.showInputTextModal = false;
+      this.data.createBodyFormat(name);
     },
   },
 };
