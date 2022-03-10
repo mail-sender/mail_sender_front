@@ -11,9 +11,9 @@ const defaultContacts: Array<Contact> = [
   {
     _id: "contact_01",
     email: "hyepago@gmail.com",
-    name: "hyepago",
+    name: "hyejin",
     company_name: "HelloFactory",
-    format_info: {},
+    format_info: { nickname: "chloe" },
   },
 ];
 

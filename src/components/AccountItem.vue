@@ -10,13 +10,13 @@
           <font-awesome-icon icon="ellipsis-vertical" />
         </template>
 
-        <div class="box-menu">
+        <div class="box-popover-menu">
           <div class="item-menu" @click="clickEditBtn">수정</div>
           <div class="item-menu" @click="clickRemoveBtn">삭제</div>
         </div>
       </n-popover>
     </div>
-    <div class="box-content">
+    <div class="box-content-table">
       <div class="item">
         <div class="label">NAME</div>
         <div class="value">{{ account.name }}</div>
@@ -61,7 +61,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, context) {
+  setup(_, context) {
     return {
       menuOverlap: ref(false),
       clickEditBtn() {
@@ -85,42 +85,7 @@ export default defineComponent({
   }
 }
 
-.box-menu {
-  .item-menu {
-    cursor: pointer;
-    padding: 5px 20px;
-    font-weight: 600;
-    &:hover {
-      color: var(--vt-c-white);
-      background: var(--background-color);
-    }
-  }
-}
-
-.box-content {
-  border: 1px solid #e8e8e8;
-  box-shadow: 4px 3px 6px #e8e8e8;
-  .item + .item {
-    border-top: 1px solid #e8e8e8;
-  }
-}
-
-.box-content > .item {
-  display: flex;
-  padding: 5px 0;
-  > * {
-    margin: auto;
-  }
-  > .value {
-    flex: 5;
-  }
-  .label {
-    flex: 2;
-    padding-left: 20px;
-    font-weight: bold;
-  }
-  .btn-change {
-    padding-right: 20px;
-  }
+.btn-change {
+  padding-right: 20px;
 }
 </style>
