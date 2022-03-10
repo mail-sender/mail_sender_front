@@ -1,13 +1,27 @@
 import { defineStore } from "pinia";
-import type { BodyFormat } from "@/components/bodyFormat.interface";
+import type { BodyFormat } from "@/models/bodyFormat.interface";
+import type { Contact } from "@/models/contact.interface";
+
+const defaultBodyFormats: Array<BodyFormat> = [
+  { _id: "format_01", name: "Format_01", content: "" },
+  { _id: "format_02", name: "Format_02", content: "" },
+];
+
+const defaultContacts: Array<Contact> = [
+  {
+    _id: "contact_01",
+    email: "hyepago@gmail.com",
+    name: "hyepago",
+    company_name: "HelloFactory",
+    format_info: {},
+  },
+];
 
 export const useDataStore = defineStore({
   id: "data",
   state: () => ({
-    bodyFormats: [
-      { _id: "format_01", name: "Format_01", content: "" },
-      { _id: "format_02", name: "Format_02", content: "" },
-    ] as Array<BodyFormat>,
+    bodyFormats: defaultBodyFormats,
+    contacts: defaultContacts,
   }),
   getters: {
     bodyFormatMenus(state): Array<any> {

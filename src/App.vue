@@ -142,11 +142,7 @@ const menus = [
     key: "bodyFormat",
     children: [],
   },
-  {
-    label: "CONTACT LIST",
-    key: "contactList",
-    children: [],
-  },
+  { label: "CONTACT LIST", key: "contactList", path: "/contact" },
 ];
 </script>
 
