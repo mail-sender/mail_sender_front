@@ -12,8 +12,10 @@ const defaultContacts: Array<Contact> = [
     _id: "contact_01",
     email: "hyepago@gmail.com",
     name: "hyejin",
-    company_name: "HelloFactory",
-    format_info: { nickname: "chloe" },
+    format_info: {
+      nickname: "chloe",
+      company: "HelloFactory",
+    },
   },
 ];
 
@@ -46,6 +48,20 @@ export const useDataStore = defineStore({
       );
       if (~index) {
         this.bodyFormats.splice(index, 1);
+      }
+    },
+    createContact(contact: Contact): void {
+      const id = Math.random() * 9999;
+      contact._id = id.toString();
+      this.contacts.push(contact);
+    },
+    updateContact(contact: Contact): void {
+      const index = this.contacts.findIndex(
+        (c: Contact) => c._id === contact._id
+      );
+      if (~index) {
+        this.contacts[index] = contact;
+        this.contacts = [...this.contacts];
       }
     },
   },

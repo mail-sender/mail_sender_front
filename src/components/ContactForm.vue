@@ -13,31 +13,20 @@
         />
       </n-form-item>
 
-      <n-form-item
-        label="COMPANY NAME"
-        path="company_name"
-        label-placement="left"
-      >
-        <n-input
-          v-model:value="contact.company_name"
-          placeholder="Enter company name"
+      <n-form-item label="FORMAT INFO" path="infoList" label-placement="left">
+        <n-dynamic-input
+          v-model:value="contact.infoList"
+          preset="pair"
+          key-placeholder="Please input the key"
+          value-placeholder="Please input the value"
         />
-      </n-form-item>
-
-      <n-form-item label="FORMAT INFO"
-        path="format_info" label-placement="left">
-          <n-dynamic-input
-            v-model:value="infoList"
-            preset="pair"
-            key-placeholder="Please input the key"
-            value-placeholder="Please input the value"
-          />
       </n-form-item>
 
       <n-form-item>
         <div class="box-submit">
-          <n-button type="primary" strong
-            block @click="onSubmit">SUBMIT</n-button>
+          <n-button type="primary" strong block @click="onSubmit"
+            >SUBMIT</n-button
+          >
         </div>
       </n-form-item>
     </n-form>
@@ -53,20 +42,22 @@ export default defineComponent({
   setup(props, context) {
     const formRef = ref(null);
     let contact: Contact = ref({} as Contact);
-    const list = [];
+    const list: Array<object> = [];
     if (props.contactData !== null) {
       contact = ref(props.contactData);
-      const formatInfo = props.contactData.format_info || {}
+      const formatInfo = props.contactData.format_info || {};
       const infoKeys = Object.keys(formatInfo);
       for (const key of infoKeys) {
         list.push({ key, value: formatInfo[key] });
       }
     }
-    const infoList = ref(list);
+    console.log("chloe test list : ", list);
+    contact.value.infoList = list;
+
     return {
       formRef,
       contact,
-      infoList,
+      rules,
       onSubmit(e) {
         e.preventDefault();
         formRef.value.validate((errors) => {
@@ -90,10 +81,16 @@ const rules = {
     message: "Please input email",
     trigger: ["input"],
   },
-  company_name: {
-    required: true,
-    message: "Please input company name",
-    trigger: ["input"],
+  infoList: {
+    validator(rule, value: Array<object>) {
+      for (let item of value) {
+        if (!item.key || !item.value) {
+          return false;
+        }
+      }
+    },
+    trigger: ["blur", "change"],
+    message: "Please input key and vlaue",
   },
   // format_info
 };

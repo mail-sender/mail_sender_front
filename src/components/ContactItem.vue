@@ -22,10 +22,6 @@
         <div class="label">EMAIL</div>
         <div class="value">{{ contact.email }}</div>
       </div>
-      <div class="item">
-        <div class="label">COMPANY NAME</div>
-        <div class="value">{{ contact.company_name }}</div>
-      </div>
 
       <div
         v-for="(key, index) in infoKeys"

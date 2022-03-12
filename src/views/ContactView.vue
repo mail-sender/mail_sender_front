@@ -6,15 +6,20 @@
           v-for="(contact, index) in contacts"
           :key="`contact-item-${index}`"
         >
-          <ContactItem :contact="contact"
-            @edit="clickEditContactButton(contact, index)" />
+          <ContactItem
+            :contact="contact"
+            @edit="clickEditContactButton(contact, index)"
+          />
         </div>
       </div>
     </n-card>
 
     <n-modal v-model:show="showContactModal" transform-origin="center">
       <n-card style="width: 550px" role="dialog" aria-modal="true">
-        <ContactForm :contactData="modalData.contact" />
+        <ContactForm
+          :contactData="modalData.contact"
+          @submit="onSubmitContactForm"
+        />
       </n-card>
     </n-modal>
   </main>
@@ -49,6 +54,22 @@ export default {
       contact = JSON.parse(JSON.stringify(contact)) as Contact;
       this.modalData = { contact, index };
       this.showContactModal = true;
+    },
+    onSubmitContactForm(contact: Contact): void {
+      this.showContactModal = false;
+      if (this.modalData.contact !== null) {
+        this.updateContact(contact);
+      } else {
+        this.addContact(contact);
+      }
+    },
+    addContact(contact: Contact): void {
+      // TODO: Create Contact
+      this.data.createContact(contact);
+    },
+    updateContact(contact: Contact): void {
+      // TODO: Update Contact
+      this.data.updateContact(contact);
     },
   },
 };
