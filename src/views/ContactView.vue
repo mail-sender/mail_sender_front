@@ -8,7 +8,8 @@
         >
           <ContactItem
             :contact="contact"
-            @edit="clickEditContactButton(contact, index)"
+            @edit="clickEditContactButton(contact)"
+            @remove="clickRemoveButton(contact)"
           />
         </div>
       </div>
@@ -22,6 +23,15 @@
         />
       </n-card>
     </n-modal>
+
+    <n-modal v-model:show="showDeleteConfirm" transform-origin="center">
+      <n-card style="width: 450px" role="dialog" aria-model="true">
+        <DeleteConfirm
+          @cancel="showDeleteConfirm = false"
+          @discard="removeContact"
+        />
+      </n-card>
+    </n-modal>
   </main>
 </template>
 
@@ -30,9 +40,10 @@ import { useDataStore } from "@/stores/data";
 import type { Contact } from "@/models/contact.interface";
 import ContactItem from "@/components/ContactItem.vue";
 import ContactForm from "@/components/ContactForm.vue";
+import DeleteConfirm from "@/components/DeleteConfirm.vue";
 
 export default {
-  components: { ContactItem, ContactForm },
+  components: { ContactItem, ContactForm, DeleteConfirm },
   setup() {
     return {
       data: useDataStore(),
@@ -40,8 +51,9 @@ export default {
   },
   data() {
     return {
-      modalData: { contact: null, index: null },
+      modalData: { contact: null },
       showContactModal: false,
+      showDeleteConfirm: false,
     };
   },
   computed: {
@@ -50,9 +62,13 @@ export default {
     },
   },
   methods: {
-    clickEditContactButton(contact: Contact, index: number) {
+    clickRemoveButton(contact: Contact): void {
+      this.modalData = { contact };
+      this.showDeleteConfirm = true;
+    },
+    clickEditContactButton(contact: Contact): void {
       contact = JSON.parse(JSON.stringify(contact)) as Contact;
-      this.modalData = { contact, index };
+      this.modalData = { contact };
       this.showContactModal = true;
     },
     onSubmitContactForm(contact: Contact): void {
@@ -70,6 +86,15 @@ export default {
     updateContact(contact: Contact): void {
       // TODO: Update Contact
       this.data.updateContact(contact);
+    },
+    removeContact(): void {
+      if (!this.modalData.contact) {
+        return;
+      }
+      // TODO: Remove Contact
+      this.data.removeContact(this.modalData.contact);
+      this.modalData = { contact: null };
+      this.showDeleteConfirm = false;
     },
   },
 };

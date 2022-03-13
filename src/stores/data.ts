@@ -50,18 +50,25 @@ export const useDataStore = defineStore({
         this.bodyFormats.splice(index, 1);
       }
     },
+    findContactIndex(id: string): number {
+      return this.contacts.findIndex((c: Contact) => c._id === id);
+    },
     createContact(contact: Contact): void {
       const id = Math.random() * 9999;
       contact._id = id.toString();
       this.contacts.push(contact);
     },
     updateContact(contact: Contact): void {
-      const index = this.contacts.findIndex(
-        (c: Contact) => c._id === contact._id
-      );
+      const index = this.findContactIndex(contact._id);
       if (~index) {
         this.contacts[index] = contact;
         this.contacts = [...this.contacts];
+      }
+    },
+    removeContact(contact: Contact): void {
+      const index = this.findContactIndex(contact._id);
+      if (~index) {
+        this.contacts.splice(index, 1);
       }
     },
   },

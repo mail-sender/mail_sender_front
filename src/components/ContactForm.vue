@@ -51,7 +51,6 @@ export default defineComponent({
         list.push({ key, value: formatInfo[key] });
       }
     }
-    console.log("chloe test list : ", list);
     contact.value.infoList = list;
 
     return {
