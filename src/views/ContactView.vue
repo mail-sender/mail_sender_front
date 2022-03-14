@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.container, .buttons {
   padding: 0 30px;
 }
 </style>

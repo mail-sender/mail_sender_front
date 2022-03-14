@@ -3,7 +3,7 @@
     <div class="header">
       <n-popover :overlap="menuOverlap" placemnet="left" trigger="click">
         <template #trigger>
-          <font-awesome-icon icon="ellipsis-vertical" />
+          <font-awesome-icon icon="ellipsis-vertical" class="icon" />
         </template>
 
         <div class="box-popover-menu">
@@ -73,5 +73,12 @@ export default defineComponent({
 <style scoped lang="scss">
 .header {
   text-align: right;
+  .icon {
+    margin-bottom: 5px;
+  }
+}
+
+.box-contact {
+  margin-bottom: 20px;
 }
 </style>
