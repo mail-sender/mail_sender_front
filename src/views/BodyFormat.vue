@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { useDataStore } from "@/stores/data";
-import type { BodyFormat } from "@/components/bodyFormat.interface";
+import type { BodyFormat } from "@/models/bodyFormat.interface";
 import DeleteConfirm from "@/components/DeleteConfirm.vue";
 
 export default {
