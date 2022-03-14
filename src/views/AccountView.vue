@@ -80,9 +80,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.buttons {
-  margin-top: 50px;
-  text-align: right;
-}
-</style>
+<style scoped lang="scss"></style>

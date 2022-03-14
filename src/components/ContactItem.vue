@@ -64,7 +64,7 @@ export default defineComponent({
   },
   computed: {
     infoKeys() {
-      return Object.keys(this.contact.format_info);
+      return Object.keys(this.contact.format_info || {});
     },
   },
 });

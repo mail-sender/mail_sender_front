@@ -13,6 +13,12 @@
           />
         </div>
       </div>
+
+      <div class="buttons">
+        <n-button type="info" strong @click="clickAddContact">
+          ADD CONTACT
+        </n-button>
+      </div>
     </n-card>
 
     <n-modal v-model:show="showContactModal" transform-origin="center">
@@ -62,6 +68,10 @@ export default {
     },
   },
   methods: {
+    clickAddContact(): void {
+      this.modalData = { contact: null };
+      this.showContactModal = true;
+    },
     clickRemoveButton(contact: Contact): void {
       this.modalData = { contact };
       this.showDeleteConfirm = true;
